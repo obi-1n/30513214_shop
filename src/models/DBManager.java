@@ -364,4 +364,24 @@ public class DBManager {
         }
     }
     
+    public void DeleteCustomer(Customer c)
+    {
+        
+        try 
+        {
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(connectionString);
+            Statement stmt = conn.createStatement();
+            
+            stmt.executeUpdate("DELETE FROM Customers WHERE "
+                    + "Username = '" + c.getUsername() + "' AND"
+                    + "Password = '" + c.getpassword() + "' AND"
+                    + "LastName = '" + c.getlastName() + "'");
+        } 
+        catch (Exception ext) 
+        {
+            System.out.println("Error deleting account: " + ext.getMessage());
+        }
+    }
+    
 }

@@ -41,12 +41,12 @@ public class customerShop extends javax.swing.JFrame {
     /**
      * Creates new form Shop
      */
-    public customerShop(Customer cr) {
+    public customerShop(Customer cr, Order o) {
         // store the logged-in customer passed into this constructor
         loggedInCustomer = cr;
 
         // create a new empty Order to represent the current shopping basket
-        currentOrder = new Order();
+        currentOrder = o;
 
         // initialize DB manager and load all products from the database into a map
         DBManager db = new DBManager();

@@ -6,6 +6,7 @@ package models;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -36,9 +37,26 @@ public class Order {
             orderLineId++;            
         }
         ol.setorderLineid(orderLineId);
-        orderLines.put(ol.getorderLineId(), ol);
+        orderLines.put(ol.getOrderLineId(), ol);
         
         calculateOrderTotal();
+    }
+    
+    public void removeOrderLine (int productId)
+    {
+        Iterator<Map.Entry<Integer, OrderLine>> iter = orderLines.entrySet().iterator();
+        
+       while(iter.hasNext())
+       {
+           Map.Entry<Integer, OrderLine> olEntry = iter.next();
+           OrderLine actualOrderLine = olEntry.getValue();
+           
+           if(actualOrderLine.getproduct().getproductId() == productId)
+           {
+              iter.remove();
+              orderTotal = orderTotal - actualOrderLine.getlineTotal();
+           }
+       }
     }
     
     //HashMap<K,V>

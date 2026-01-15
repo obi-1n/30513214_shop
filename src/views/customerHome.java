@@ -5,6 +5,7 @@
 package views;
 
 import models.Customer;
+import models.Order;
 
 /**
  *
@@ -14,6 +15,7 @@ public class customerHome extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(customerHome.class.getName());
     private Customer loggedInCustomer;
+    private Order currentOrder;
 
     /**
      * Creates new form customerHome
@@ -21,6 +23,7 @@ public class customerHome extends javax.swing.JFrame {
     public customerHome(Customer cr) {
         // Store the Customer object provided to this constructor
         loggedInCustomer = cr;
+        currentOrder = new Order();
 
         // Initialize generated Swing components
         initComponents();
@@ -66,6 +69,11 @@ public class customerHome extends javax.swing.JFrame {
         });
 
         jButton4.setText("UNREGISTER FROM SHOP");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("LOG OUT");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +144,7 @@ public class customerHome extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        customerShop sh = new customerShop(loggedInCustomer);
+        customerShop sh = new customerShop(loggedInCustomer, currentOrder);
         sh.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -146,6 +154,12 @@ public class customerHome extends javax.swing.JFrame {
         mMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        DeleteAccount da = new DeleteAccount(loggedInCustomer);
+        da.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

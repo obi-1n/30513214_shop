@@ -54,10 +54,6 @@ public class OrderLine {
     
     
     //getter methods
-    public int getorderLineId()
-    {
-        return orderLineId;
-    }
     
     public Product getproduct()
     {

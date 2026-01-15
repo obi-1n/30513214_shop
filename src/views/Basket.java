@@ -70,6 +70,8 @@ public class Basket extends javax.swing.JFrame {
         tblBasket = new javax.swing.JTable();
         btnAddToBasket = new javax.swing.JButton();
         btnBuy = new javax.swing.JButton();
+        btnRemoveProduct = new javax.swing.JToggleButton();
+        lblErrorMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,38 +99,61 @@ public class Basket extends javax.swing.JFrame {
             }
         });
 
+        btnRemoveProduct.setText("REMOVE SELECTED PRODUCT");
+        btnRemoveProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveProductActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAddToBasket)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btnRemoveProduct)
+                            .addGap(103, 103, 103)))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(btnAddToBasket)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(97, 97, 97)
+                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddToBasket)
                     .addComponent(btnBuy))
-                .addGap(54, 54, 54))
+                .addGap(18, 18, 18)
+                .addComponent(btnRemoveProduct)
+                .addGap(13, 13, 13))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToBasketActionPerformed
-        // TODO add your handling code here:
+        customerShop ch = new customerShop(loggedInCustomer, currentOrder);
+        ch.setVisible(true);
+        this.setVisible(false);
+        
     }//GEN-LAST:event_btnAddToBasketActionPerformed
 
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
@@ -158,6 +183,30 @@ public class Basket extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBuyActionPerformed
 
+    private void btnRemoveProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveProductActionPerformed
+        int selectedRow = tblBasket.getSelectedRow();
+               
+        
+        //displays message if a row hasnt been selected first
+        if(selectedRow == -1)
+        {
+            lblErrorMessage.setText("Error: Please Select A Productt First");
+        }
+        
+        else
+        {
+            int productId = Integer.parseInt(String.valueOf(tblBasket.getValueAt(selectedRow, 0)));
+            currentOrder.removeOrderLine(productId);
+
+            
+            lblErrorMessage.setText("Orderline Successfully Removed");
+            
+            DefaultTableModel basketModel = (DefaultTableModel)tblBasket.getModel();
+            basketModel.removeRow(selectedRow);
+            tblBasket.setModel(basketModel);
+        }
+    }//GEN-LAST:event_btnRemoveProductActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -186,7 +235,9 @@ public class Basket extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToBasket;
     private javax.swing.JButton btnBuy;
+    private javax.swing.JToggleButton btnRemoveProduct;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblErrorMessage;
     private javax.swing.JTable tblBasket;
     // End of variables declaration//GEN-END:variables
 }
