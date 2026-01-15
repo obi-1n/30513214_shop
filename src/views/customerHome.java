@@ -23,6 +23,7 @@ public class customerHome extends javax.swing.JFrame {
     public customerHome(Customer cr) {
         // Store the Customer object provided to this constructor
         loggedInCustomer = cr;
+        //Store a new Order object for the customer session
         currentOrder = new Order();
 
         // Initialize generated Swing components
@@ -138,26 +139,38 @@ public class customerHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Create an EditDetails window and pass the logged-in customer
         EditDetails ed = new EditDetails(loggedInCustomer);
+        // Display the EditDetails window
         ed.setVisible(true);
+        // Hide the current customer home window
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Create a customerShop window, passing the logged-in customer and current order
         customerShop sh = new customerShop(loggedInCustomer, currentOrder);
+        // Display the customerShop window
         sh.setVisible(true);
+        // Hide the current customer home window
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        MainMenu mMenu= new MainMenu();
+        // Create a MainMenu window
+        MainMenu mMenu = new MainMenu();
+        // Display the MainMenu window
         mMenu.setVisible(true);
+        // Hide the current customer home window
         this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Create a DeleteAccount window and pass the logged-in customer
         DeleteAccount da = new DeleteAccount(loggedInCustomer);
+        // Display the DeleteAccount window
         da.setVisible(true);
+        // Hide the current customer home window
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 

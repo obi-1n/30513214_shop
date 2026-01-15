@@ -21,42 +21,59 @@ public class Order {
     
     public void calculateOrderTotal()
     {
+        // Reset the order total to 0
         orderTotal = 0;
+        // Iterate through each entry in the orderLines HashMap
         for(Map.Entry<Integer, OrderLine> olMapEntry : orderLines.entrySet())
         {
+            // Get the OrderLine object from the current HashMap entry
             OrderLine actualOrderLine = olMapEntry.getValue();
+            // Add the line total of the current OrderLine to the order total
             orderTotal = orderTotal + actualOrderLine.getlineTotal();
         }
     }
     
     public void addOrderLine(OrderLine ol)
     {
+        // Initialize orderLineId to 0
         int orderLineId = 0;
+        // Check if the orderLineId already exists as a key in the HashMap
         if(orderLines.containsKey(orderLineId))
         {
+            // Increment orderLineId to find the next available id
             orderLineId++;            
         }
+        // Set the orderLineId on the OrderLine object
         ol.setorderLineid(orderLineId);
+        // Add the OrderLine to the HashMap with orderLineId as the key
         orderLines.put(ol.getOrderLineId(), ol);
         
+        // Recalculate the order total to include the new OrderLine
         calculateOrderTotal();
     }
     
     public void removeOrderLine (int productId)
     {
+        // Create an Iterator for the orderLines HashMap entries
         Iterator<Map.Entry<Integer, OrderLine>> iter = orderLines.entrySet().iterator();
         
-       while(iter.hasNext())
-       {
-           Map.Entry<Integer, OrderLine> olEntry = iter.next();
-           OrderLine actualOrderLine = olEntry.getValue();
-           
-           if(actualOrderLine.getproduct().getproductId() == productId)
-           {
-              iter.remove();
-              orderTotal = orderTotal - actualOrderLine.getlineTotal();
-           }
-       }
+        // Loop through each entry in the HashMap
+        while(iter.hasNext())
+        {
+            // Get the current HashMap entry
+            Map.Entry<Integer, OrderLine> olEntry = iter.next();
+            // Get the OrderLine object from the current entry
+            OrderLine actualOrderLine = olEntry.getValue();
+            
+            // Check if the product ID in the OrderLine matches the productId parameter
+            if(actualOrderLine.getproduct().getproductId() == productId)
+            {
+            // Remove the current OrderLine from the HashMap
+            iter.remove();
+            // Subtract the line total of the removed OrderLine from the order total
+            orderTotal = orderTotal - actualOrderLine.getlineTotal();
+            }
+        }
     }
     
     //HashMap<K,V>

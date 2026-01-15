@@ -133,22 +133,25 @@ public class customerLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcustomerUsernameActionPerformed
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-        // TODO add your handling code here:
+        // Get the username and password from the text fields
         String username = txtcustomerUsername.getText();
         String password = txtcustomerPassword.getText();
         
-        
+        // Create a database manager instance and attempt to login the customer
         DBManager db = new DBManager();
         Customer customerFound = db.customer_login(username, password);
         
+        // Check if the customer was found in the database
         if(customerFound != null)
         {
+            // If login successful, open the customer home window and hide the login window
             customerHome cHome = new customerHome(customerFound);
             cHome.setVisible(true);
             this.setVisible(false);
         }
         else
         {
+            // If login failed, display an error message
             lblErrorMessage.setText("Error - Invalid Username/Password");
         }
     }//GEN-LAST:event_btnloginActionPerformed

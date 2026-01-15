@@ -128,13 +128,15 @@ public class staffLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtstaffUsernameActionPerformed
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-        // TODO add your handling code here:
+        // Get the username and password from the text fields
         String username = txtstaffUsername.getText();
         String password = txtstaffPassword.getText();
                
+        // Create a database manager instance and attempt to authenticate the staff member
         DBManager db = new DBManager();
         Staff staffFound = db.staff_login(username, password);
         
+        // If authentication is successful, open the staff home window
         if(staffFound != null)
         {
             staffHome sHome = new staffHome(staffFound);
@@ -143,6 +145,7 @@ public class staffLogin extends javax.swing.JFrame {
         }
         else
         {
+            // Display error message if login credentials are invalid
             lblErrorMessage.setText("Error - Invalid Username/Password");
         }
     }//GEN-LAST:event_btnloginActionPerformed
