@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -285,12 +286,15 @@ public class DBManager {
                 loadedCustomers.put(username, customer);
             }
         }
-        catch(Exception ex)
+        catch(Exception ext)
         {
             // Handle any database exceptions silently
+            System.out.println("Error loading customer: " + ext.getMessage());
         }
         finally
         {
+            loadedCustomers = loadCustomerOrders(loadedCustomers);
+            
             // Return the populated HashMap of customers
             return loadedCustomers;
         }
@@ -474,6 +478,48 @@ public class DBManager {
         {
             // Handle any exceptions that occur during deletion
             System.out.println("Error deleting account: " + ext.getMessage());
+        }
+    }
+    
+    public HashMap<String, Customer> loadCustomerOrders(HashMap<String, Customer> Customers)
+    {
+        try
+        {
+            // Load the database driver
+            Class.forName(driver);
+            // Establish connection to the database
+            Connection conn = DriverManager.getConnection(connectionString);
+            
+            // Create statement and execute query to retrieve all customers
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Orders");
+            
+            // Iterate through each customer record in the result set
+            while(rs.next())
+            {
+                int orderId = rs.getInt("OrderDate");
+                
+                String stringOrderDate =rs.getString("OrderDate");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date orderdate = format.parse(stringOrderDate);
+                
+                String customer = rs.getString("Customer");
+                double orderTotal = rs.getDouble("OrdeTotal");
+                String status = rs.getString("Status");
+                
+                Customer customerWithOrder = Customers.get(customer);
+                Order loadedOrder = new Order(orderId, orderdate, orderTotal, status);
+                
+                customerWithOrder.getOrders().put(orderId, loadedOrder);
+            }
+        }
+        catch(Exception ext)
+        {
+            System.out.println("Error loading customer orders: " + ext.getMessage());
+        }
+        finally
+        {
+            return Customers;
         }
     }
     
