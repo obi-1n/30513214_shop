@@ -134,19 +134,18 @@ public class DeleteAccount extends javax.swing.JFrame {
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
         String username = txtUsername.getText();
-        System.out.println(loggedInCustomer.getusername());
         String password = txtPassword.getText();
         String lastname = txtLastname.getText();
         
-        if(loggedInCustomer.getusername() != username)
+        if(!loggedInCustomer.getusername().equals(username))
         {
             lblErrorMessage.setText("Error - Invalid Username");
         }
-        else if(loggedInCustomer.getpassword() != password)
+        else if(!loggedInCustomer.getpassword().equals(password))
         {
             lblErrorMessage.setText("Error - Invalid Password");
         }
-        else if(loggedInCustomer.getlastName()!= lastname)
+        else if(!loggedInCustomer.getlastName().equals(lastname))
         {
             lblErrorMessage.setText("Error - Invalid Lastname");
         }

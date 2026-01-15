@@ -468,9 +468,7 @@ public class DBManager {
             
             // Execute DELETE query with multiple conditions for security
             stmt.executeUpdate("DELETE FROM Customers WHERE "
-                    + "Username = '" + c.getUsername() + "' AND"
-                    + "Password = '" + c.getpassword() + "' AND"
-                    + "LastName = '" + c.getlastName() + "'");
+                    + "Username = '" + c.getUsername() + "'");
         } 
         catch (Exception ext) 
         {
