@@ -49,6 +49,11 @@ public class staffHome extends javax.swing.JFrame {
         });
 
         jButton4.setText("VIEW ALL ORDERS");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("LOG OUT");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +121,12 @@ public class staffHome extends javax.swing.JFrame {
         mMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        viewAllOrders voa = new viewAllOrders(loggedInStaff);
+        voa.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

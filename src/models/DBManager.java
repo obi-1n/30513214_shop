@@ -481,7 +481,7 @@ public class DBManager {
         }
     }
     
-    public HashMap<String, Customer> loadCustomerOrders(HashMap<String, Customer> Customers)
+    public HashMap<String, Customer> loadCustomerOrders(HashMap<String, Customer> customers)
     {
         try
         {
@@ -497,17 +497,17 @@ public class DBManager {
             // Iterate through each customer record in the result set
             while(rs.next())
             {
-                int orderId = rs.getInt("OrderDate");
+                int orderId = rs.getInt("OrderId");
                 
                 String stringOrderDate =rs.getString("OrderDate");
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date orderdate = format.parse(stringOrderDate);
                 
-                String customer = rs.getString("Customer");
-                double orderTotal = rs.getDouble("OrdeTotal");
+                String customer = rs.getString("Username");
+                double orderTotal = rs.getDouble("OrderTotal");
                 String status = rs.getString("Status");
                 
-                Customer customerWithOrder = Customers.get(customer);
+                Customer customerWithOrder = customers.get(customer);
                 Order loadedOrder = new Order(orderId, orderdate, orderTotal, status);
                 
                 customerWithOrder.getOrders().put(orderId, loadedOrder);
@@ -519,7 +519,7 @@ public class DBManager {
         }
         finally
         {
-            return Customers;
+            return customers;
         }
     }
     

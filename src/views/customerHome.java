@@ -61,6 +61,11 @@ public class customerHome extends javax.swing.JFrame {
         });
 
         jButton2.setText("VIEW MY ORDERS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("EDIT DETAILS");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +178,12 @@ public class customerHome extends javax.swing.JFrame {
         // Hide the current customer home window
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        viewOrders vo = new viewOrders(loggedInCustomer);
+        vo.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
