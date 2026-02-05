@@ -133,10 +133,13 @@ public class DeleteAccount extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
+        
+        //declare variables
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         String lastname = txtLastname.getText();
         
+        //cehck if user details are valid
         if(!loggedInCustomer.getusername().equals(username))
         {
             lblErrorMessage.setText("Error - Invalid Username");

@@ -12,8 +12,8 @@ public class Product {
     
     public String toString()
     {
-        String animalText = productName + " : " + price;
-        return animalText;
+        String productText = productName + " : " + price;
+        return productText;
     }
     
     //Attributes 

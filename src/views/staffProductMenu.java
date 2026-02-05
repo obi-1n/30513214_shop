@@ -162,19 +162,29 @@ public class staffProductMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lstcategoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstcategoriesValueChanged
-        String selectedCategory = lstcategories.getSelectedValue().toString();
+        // Get the selected category name from the category list
+        String selectedCategory = lstcategories.getSelectedValue();
+        
+        // Create a new list model that will hold the filtered products
         DefaultListModel productListModel = new DefaultListModel();
 
-        for(Map.Entry<Integer, Product> productMapEntry : allProducts.entrySet())
-        {
+        
+        // Loop through all products stored in the system
+        for (Map.Entry<Integer, Product> productMapEntry : allProducts.entrySet()) {
+
+            // Extract the actual Product object from the map entry
             Product actualProduct = productMapEntry.getValue();
-            //package.class
-            if(actualProduct.getClass().getName().equals("models." + selectedCategory))
-            {
+
+            // Check if the product's class name matches the selected category
+            // Products appear to be grouped by class type (e.g., models.Book, models.Game)
+            if (actualProduct.getClass().getName().equals("models." + selectedCategory)) {
+
+                // Add the product to the filtered model
                 productListModel.addElement(actualProduct);
             }
-
         }
+
+        // Update the product JList to show only the products in the selected categor
         lstproduct.setModel(productListModel);
     }//GEN-LAST:event_lstcategoriesValueChanged
 
@@ -185,17 +195,27 @@ public class staffProductMenu extends javax.swing.JFrame {
         }
         else
         {
+            // Get the currently selected product from the JList (returns Object)
             Object selectedProductObject = lstproduct.getSelectedValue();
-            Product selectedProduct = (Product)selectedProductObject;
-            
+
+            // Cast the selected object into a Product instance
+            Product selectedProduct = (Product) selectedProductObject;
+
+            // Create a DBManager instance to interact with the database
             DBManager db = new DBManager();
+
+            // Call the method to delete the product from the database using its ID
             db.deleteProduct(selectedProduct.getproductId());
-            
-            DefaultListModel animalList = (DefaultListModel)lstproduct.getModel();
-            animalList.remove(lstproduct.getSelectedIndex());
-            
+
+            // Retrieve the current list model used by lstproduct
+            DefaultListModel productList = (DefaultListModel) lstproduct.getModel();
+
+            // Remove the selected product from the JList visually
+            productList.remove(lstproduct.getSelectedIndex());
+
+            // Also remove the product from the application's in‑memory product collectio
             allProducts.remove(selectedProduct.getproductId());
-            
+
             lblConfirm.setText("Product deleted");
         }
     }//GEN-LAST:event_btndeleteProductActionPerformed

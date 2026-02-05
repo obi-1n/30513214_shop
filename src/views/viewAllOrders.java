@@ -32,16 +32,22 @@ public class viewAllOrders extends javax.swing.JFrame {
         
         initComponents();
         
+        //get table model so we can add rows to the orders table
         DefaultTableModel ordersModel = (DefaultTableModel)tblOrders.getModel();
         
+        //loop through every customer in the system
         for (Map.Entry<String, Customer> cEntry : customers.entrySet()) 
         {
+            //get the customer object from the map entry
             Customer actualCustomer = cEntry.getValue();
             
+            //loop through each order belonging to this customer
             for (Map.Entry<Integer, Order> oEntry : actualCustomer.getOrders().entrySet()) 
             {
+                //get order object
                 Order actualOrder = oEntry.getValue();
 
+                //add the order details as a new row in the table
                 ordersModel.addRow(new Object[]
                 {
                     actualCustomer.getUsername(),

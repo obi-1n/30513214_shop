@@ -34,7 +34,7 @@ public class Order {
             //Get Product stored inside the orderLine
             Product productFromOrderLine = actualOrderLine.getproduct();
             
-            //Compare the ID we're searching for with this animal's ID
+            //Compare the ID we're searching for with this product's ID
             if(productId == productFromOrderLine.getproductId())
             {
                 //if they match, mark that we've found it

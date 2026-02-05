@@ -26,11 +26,15 @@ public class viewOrders extends javax.swing.JFrame {
         loggedInCustomer = cr;
         initComponents();
         
+        //get table model so we can add rows to the orders table
         DefaultTableModel ordersModel = (DefaultTableModel)tblOrders.getModel();
+        //loop through every order in the system
         for(Map.Entry<Integer, Order> oEntry : loggedInCustomer.getOrders().entrySet())
         {
+            //get the customer object from the map entry
             Order actualOrder = oEntry.getValue();
             
+            //add the order details as a new row in the table
             ordersModel.addRow(new Object[]
             {
                 actualOrder.getorderId(),

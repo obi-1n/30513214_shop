@@ -274,6 +274,8 @@ public class registerCustomer extends javax.swing.JFrame {
                 //register customer
                 DBManager db = new DBManager();
                 boolean register = db.regiserCustomer(c);
+                
+                //check if username is unique
                 if (register == true) {
                     lblConfirmation.setText("New Customer Registered");
                 } else {
