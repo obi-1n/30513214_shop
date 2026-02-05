@@ -52,6 +52,11 @@ public class customerLogin extends javax.swing.JFrame {
         });
 
         btnregister.setText("REGISTER");
+        btnregister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregisterActionPerformed(evt);
+            }
+        });
 
         btnmainMenu.setText("RETURN TO MAIN MENU");
         btnmainMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +167,12 @@ public class customerLogin extends javax.swing.JFrame {
         mMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnmainMenuActionPerformed
+
+    private void btnregisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregisterActionPerformed
+        registerCustomer rc = new registerCustomer();
+        rc.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnregisterActionPerformed
 
     /**
      * @param args the command line arguments

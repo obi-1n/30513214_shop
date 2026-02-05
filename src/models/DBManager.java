@@ -349,6 +349,10 @@ public class DBManager {
         }
     }
     
+    /**
+     * Loads all staff members from the database into a HashMap
+     * @return HashMap containing products with productId as key
+     */
     public HashMap<Integer, Product> loadProducts()
     {
         HashMap<Integer, Product> allProducts = new HashMap();
@@ -395,6 +399,11 @@ public class DBManager {
         }
     }
     
+    /**
+     * Logs Customer into the customerHome menu.
+     * @param username Customers username
+     * @param  password Customers password
+     */
     public Customer customer_login(String username, String password)
     {
         // Load all customers from the database
@@ -427,6 +436,11 @@ public class DBManager {
         }
     }
     
+    /**
+     * Logs Staff into the staffHome menu.
+     * @param username Customers username
+     * @param  password Customers password
+     */
     public Staff staff_login(String username, String password)
     {
         // Load all staff members from the database
@@ -459,6 +473,52 @@ public class DBManager {
         }
     }
     
+    /**
+     * Registers Customer into the database.
+     * @param c Product object containing customer details
+     */
+    public boolean regiserCustomer(Customer c)
+    {
+        boolean canRegister = true;//helps check if username is unique
+        try
+        {
+            // Load the database driver
+            Class.forName(driver);
+            // Establish connection to the database
+            Connection conn = DriverManager.getConnection(connectionString);
+            
+            // Create statement to execute SQL query
+            Statement stmt = conn.createStatement();
+            // Execute UPDATE query to add customer to database
+            stmt.executeUpdate("INSERT INTO Customers " +
+            "(Username, Password, FirstName, LastName, AddressLine1, AddressLine2, Town, Postcode) " +
+            "VALUES (" +
+            "'" + c.getUsername()     + "', " +
+            "'" + c.getpassword()     + "', " +   // keeping your getter names as-is
+            "'" + c.getfirstName()    + "', " +
+            "'" + c.getlastName()     + "', " +
+            "'" + c.getaddressLine1() + "', " +
+            "'" + c.getaddressLine2() + "', " +
+            "'" + c.gettown()         + "', " +
+            "'" + c.getpostcode()     + "'"  +
+            ")");
+
+        }
+        catch(Exception ex)
+	{
+		canRegister = false; //this means the username already exists
+        }
+        finally
+        {
+	return canRegister; //this will return true or false
+        }
+
+    }
+    
+     /**
+     * Deletes Customer from the database.
+     * @param c Product object containing customer details
+     */
     public void DeleteCustomer(Customer c)
     {
         // Attempt to delete a customer record from the database

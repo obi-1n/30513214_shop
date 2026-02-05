@@ -19,6 +19,34 @@ public class Order {
     private double orderTotal;
     private String status;
     
+    //check item is already in order
+    public boolean isInBasket(int productId)
+    {
+        //start by assuming item isn't in the basket
+        boolean isAlreadyInBasket = false;
+        
+        //go through every (key, value) pair in the orderLines map
+        for (Map.Entry<Integer, OrderLine> olMapEntry : orderLines.entrySet())
+        {
+            //Get the orderLine object from the map entry
+            OrderLine actualOrderLine = olMapEntry.getValue();
+            
+            //Get Product stored inside the orderLine
+            Product productFromOrderLine = actualOrderLine.getproduct();
+            
+            //Compare the ID we're searching for with this animal's ID
+            if(productId == productFromOrderLine.getproductId())
+            {
+                //if they match, mark that we've found it
+                isAlreadyInBasket = true;
+            }
+        }
+        
+        //After checking everything, return whether we found a match
+        return isAlreadyInBasket;
+    }
+    
+    //calculates the order total
     public void calculateOrderTotal()
     {
         // Reset the order total to 0
@@ -33,6 +61,7 @@ public class Order {
         }
     }
     
+    //adds orderline to order
     public void addOrderLine(OrderLine ol)
     {
         // Initialize orderLineId to 0
@@ -52,6 +81,7 @@ public class Order {
         calculateOrderTotal();
     }
     
+    //removes orderline from order
     public void removeOrderLine (int productId)
     {
         // Create an Iterator for the orderLines HashMap entries
