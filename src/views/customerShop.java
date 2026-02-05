@@ -221,28 +221,41 @@ public class customerShop extends javax.swing.JFrame {
         }
         else
         {
+            //initialise variable
+            int q;
+            
             // Parse the requested quantity (may throw NumberFormatException if invalid input)
-            int q = Integer.parseInt(txtquantity.getText());
+            try {
+                q = Integer.parseInt(txtquantity.getText());
+            } catch (NumberFormatException ex) {
+                lblConfirmationMessage.setText("Please enter a valid number");
+                return;
+            }
 
             // Retrieve the selected product from the JList and cast to Product
             Object selectedProductObject = lstproduct.getSelectedValue();
             Product selectedProduct = (Product) selectedProductObject;
-            
-            // Check if there is sufficient stock to fulfil the requested quantity
-            if (q <= selectedProduct.getstockLevel())
+
+            //check if product is already in basket
+            if (currentOrder.isInBasket(selectedProduct.getproductId()) == true)
             {
-            // Create a new order line for the selected product and quantity
-            OrderLine ol = new OrderLine(selectedProduct, q);
-            // Add the order line to the current order (the customer's basket)
-            currentOrder.addOrderLine(ol);
-            
-            // Inform the user the product was added
-            lblConfirmationMessage.setText("Product added to basket");
+                lblConfirmationMessage.setText("Already in Basket - Please Remove First");
             }
-            else
-            {
-            // Not enough stock available to satisfy the request
-            lblConfirmationMessage.setText("Product is Not Avilable");
+            else {
+                // Check if there is sufficient stock to fulfil the requested quantity
+                if (q <= selectedProduct.getstockLevel()) {
+                    // Create a new order line for the selected product and quantity
+                    OrderLine ol = new OrderLine(selectedProduct, q);
+                    // Add the order line to the current order (the customer's basket)
+                    currentOrder.addOrderLine(ol);
+
+                    // Inform the user the product was added
+                    lblConfirmationMessage.setText("Product added to basket");
+                } 
+                else {
+                    // Not enough stock available to satisfy the request
+                    lblConfirmationMessage.setText("Product is Not Avilable");
+                }
             }
         }
     }//GEN-LAST:event_btnaddToBasketActionPerformed
