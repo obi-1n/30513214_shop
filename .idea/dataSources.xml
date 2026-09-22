@@ -2,7 +2,6 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="User Data Source" uuid="68f2aa64-112c-4287-819f-985e16db6b00">
-      <driver-ref>ba68dcd3-be7f-4b36-8a6e-a160799d53e0</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>
       <jdbc-driver>java.sql.Driver</jdbc-driver>
